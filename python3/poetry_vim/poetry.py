@@ -20,9 +20,9 @@ class Poet:
 
         vim.command("update")
 
-        vim.feedkey("o")
+        vim.feedkeys("o")
 
-        vim.command("q")
+        vim.command("wq")
 
     def get_poetry(self) -> list[str]:
         while True:
