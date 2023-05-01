@@ -30,12 +30,13 @@ class Poet:
     def _get_rand_author(self) -> str:
         body = requests.get("https://poetrydb.org/author").json()
 
-        authors = body.authors
+        authors = body["authors"]
         return authors[random.randrange(0, len(authors))]
     
     def _get_poem(self, author: str) -> Poem:
-        poems: list[Poem] = requests.get("https://poetrydb.org/author/{author}/title,lines").json()
-        return poems[random.randrange(0, len(poems))]
+        poems = requests.get("https://poetrydb.org/author/{author}/title,lines").json()
+        poem = poems[random.randrange(0, len(poems))]
+        return Poem(poem["title"], poem["lines"])
         
 
 
