@@ -20,6 +20,8 @@ class Poet:
 
         vim.current.window.cursor = (row + len(poem), len(poem[-1]))
 
+        vim.command("update")
+
     def get_poetry(self) -> list[str]:
         while True:
             try:
