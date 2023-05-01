@@ -8,19 +8,19 @@ class Poem:
         self.lines = lines
 
 class Poet:
-    def test(self) -> None:
+    def buf_insert_poem(self) -> None:
         print("hello there!")
         row, col = vim.current.window.cursor
         buffer = vim.current.buffer
         print(buffer, row, col)
-        print("more")
 
-        buffer[row-1] = buffer[row-1][:col] + "hello there!" + buffer[row-1][col:]
+        poem = self.get_poetry()
 
-        new_col = col + len("hello there!")
-        vim.current.window.cursor = (row, new_col)
+        buffer = buffer[:row-1] + poem + buffer[:row-1]
 
-    def get_poetry(self) -> str:
+        vim.current.window.cursor = (row + len(poem), len(poem[-1]))
+
+    def get_poetry(self) -> list[str]:
         while True:
             try:
                 return self._get_poetry()
@@ -28,12 +28,12 @@ class Poet:
                 continue
 
 
-    def _get_poetry(self) -> str:
+    def _get_poetry(self) -> list[str]:
         author = self._get_rand_author()
         poem = self._get_poem(author)
-        lines = '\n'.join([line.strip() for line in poem.lines[:min(random.randrange(3, 7), len(poem.lines))]])
-        out = f"{lines}\n({author})"
-        return out
+        lines = [line.strip() for line in poem.lines[:min(random.randrange(3, 7), len(poem.lines))]]
+        lines.append(f"({author})")
+        return lines
     
     def _get_rand_author(self) -> str:
         body = requests.get("https://poetrydb.org/author").json()
@@ -42,7 +42,11 @@ class Poet:
     
     def _get_poem(self, author: str) -> Poem:
         url = f"https://poetrydb.org/author/{author}/title,lines"
-        poems = requests.get(f"https://poetrydb.org/author/{author}/title,lines").json()
+        poems = requests.get(url).json()
         poem = poems[random.randrange(0, len(poems))]
         return Poem(poem["title"], poem["lines"])
+
+poet = Poet()
+
+print(poet.get_poetry())
 
