@@ -6,6 +6,7 @@ class Poet:
         row, col = vim.current.window.cursor
         buffer = vim.current.buffer
         print(buffer, row, col)
+        print("more")
 
         buffer[row-1] = buffer[row-1][:col] + "hello there!" + buffer[row-1][col:]
 
