@@ -16,7 +16,7 @@ class Poet:
 
         poem = self.get_poetry()
 
-        buffer = buffer[:row-1] + poem + buffer[:row-1]
+        buffer[row:row] = poem
 
         vim.current.window.cursor = (row + len(poem), len(poem[-1]))
 
