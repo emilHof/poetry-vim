@@ -20,27 +20,29 @@ class Poet:
         new_col = col + len("hello there!")
         vim.current.window.cursor = (row, new_col)
 
+    def get_poetry(self) -> str:
+        while True:
+            try:
+                return self._get_poetry()
+            except:
+                continue
+
+
     def _get_poetry(self) -> str:
         author = self._get_rand_author()
-        print(f"author: {author}")
         poem = self._get_poem(author)
-        print(f"poem: {poem}")
-        return "\n".join(poem.lines[:min(2, len(poem.lines))])
+        lines = '\n'.join([line.strip() for line in poem.lines[:min(random.randrange(3, 7), len(poem.lines))]])
+        out = f"{lines}\n({author})"
+        return out
     
     def _get_rand_author(self) -> str:
         body = requests.get("https://poetrydb.org/author").json()
-
         authors = body["authors"]
         return authors[random.randrange(0, len(authors))]
     
     def _get_poem(self, author: str) -> Poem:
-        poems = requests.get("https://poetrydb.org/author/{author}/title,lines").json()
+        url = f"https://poetrydb.org/author/{author}/title,lines"
+        poems = requests.get(f"https://poetrydb.org/author/{author}/title,lines").json()
         poem = poems[random.randrange(0, len(poems))]
         return Poem(poem["title"], poem["lines"])
-        
-
-
-
-
-
 
