@@ -20,7 +20,7 @@ class Poet:
 
         vim.command("update")
 
-        vim.feedkeys("o")
+        vim.command("normal! o")
 
         vim.command("wq")
 
