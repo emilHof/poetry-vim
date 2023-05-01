@@ -22,7 +22,7 @@ class Poet:
 
         vim.command("normal! o")
 
-        vim.command("wq")
+        vim.command('stopinsert')
 
     def get_poetry(self) -> list[str]:
         while True:
@@ -36,7 +36,7 @@ class Poet:
         author = self._get_rand_author()
         poem = self._get_poem(author)
         lines = [line.strip() for line in poem.lines[:min(random.randrange(3, 7), len(poem.lines))]]
-        lines.append(f"({author})")
+        lines.append(f" - {author}")
         return lines
     
     def _get_rand_author(self) -> str:
