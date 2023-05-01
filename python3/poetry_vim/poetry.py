@@ -46,7 +46,3 @@ class Poet:
         poem = poems[random.randrange(0, len(poems))]
         return Poem(poem["title"], poem["lines"])
 
-poet = Poet()
-
-print(poet.get_poetry())
-
