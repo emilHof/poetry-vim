@@ -6,4 +6,4 @@ endif
 python3 import poetry_vim.poetry
 python3 poet = poetry_vim.poetry.Poet()
 
-command! Poet python3 poet._get_poem()
+command! Poet python3 poet._get_poetry()
