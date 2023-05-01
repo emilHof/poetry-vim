@@ -9,10 +9,8 @@ class Poem:
 
 class Poet:
     def buf_insert_poem(self) -> None:
-        print("hello there!")
         row, col = vim.current.window.cursor
         buffer = vim.current.buffer
-        print(buffer, row, col)
 
         poem = self.get_poetry()
 
@@ -21,6 +19,10 @@ class Poet:
         vim.current.window.cursor = (row + len(poem), len(poem[-1]))
 
         vim.command("update")
+
+        vim.feedkey("o")
+
+        vim.command("q")
 
     def get_poetry(self) -> list[str]:
         while True:
