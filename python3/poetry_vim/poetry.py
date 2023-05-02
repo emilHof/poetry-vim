@@ -32,10 +32,10 @@ class Poet:
 
     def _get_poetry(self) -> list[str]:
         author = self._get_rand_author()
-        poem = self._get_poem(author)
-        lines  = [line for line in poem.lines[:min(random.randrange(11, 15), len(poem.lines))] if line != ""]
+        (title, lines) = self._get_poem(author)
+        lines  = [line for line in lines[:min(random.randrange(11, 15), len(lines))] if line != ""]
         lines = [line.strip() for line in lines[:min(random.randrange(3, 7), len(lines))]]
-        lines += [f" - {author}", ""]
+        lines = [f" -- From: {title}"] + lines + ["", f" -- By: {author}", ""]
         return lines
     
     def _get_rand_author(self) -> str:
@@ -43,9 +43,9 @@ class Poet:
         authors = body["authors"]
         return authors[random.randrange(0, len(authors))]
     
-    def _get_poem(self, author: str) -> Poem:
+    def _get_poem(self, author: str) -> tuple[str, list[str]]:
         url = f"https://poetrydb.org/author/{author}/title,lines"
         poems = requests.get(url).json()
         poem = poems[random.randrange(0, len(poems))]
-        return Poem(poem["title"], poem["lines"])
+        return (poem["title"], poem["lines"])
 
