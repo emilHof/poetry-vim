@@ -14,11 +14,11 @@ When `:Poet` is run **poetry-vim** makes a request to the amazing [PoetryDB](htt
 
 #### Prerequisites
 
-- Vim or Neovim complied with python3 support.
+Vim or Neovim complied with python3 support.
 
 #### Using `vim-plug`
 
-```
+```vim
 Plug 'emilHof/poetry-vim'
 ```
 
