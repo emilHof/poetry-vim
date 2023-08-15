@@ -1,6 +1,6 @@
 # poetry-vim
 
-This plugin fetches poetry snippets, randomly chosen from a set of (well) known poets. For what purpose? Art!
+This plugin fetches poetry snippets, randomly chosen from a set of (well) known poets. The purpose? Art!
 
 ## Features
 
